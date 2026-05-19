@@ -1,0 +1,19 @@
+{
+  "_comment": "Copy to spendguard.config.json. PRICES BELOW ARE PLACEHOLDERS (USD per 1,000,000 tokens) — NOT an authoritative or current vendor price feed. Verify current vendor pricing and edit them to match what YOU pay. spendguard estimates spend; it is NOT a billing system.",
+  "upstreamBaseUrl": "https://api.anthropic.com",
+  "host": "127.0.0.1",
+  "port": 8787,
+  "budgetDaily": 10,
+  "budgetTotal": 200,
+  "overBudget": "hard-block",
+  "maxCallsPerWindow": 60,
+  "windowMs": 60000,
+  "incompleteUsage": "count-zero",
+  "defaultProject": "default",
+  "pricing": {
+    "claude-3-5-sonnet": { "input": 3, "output": 15 },
+    "claude-3-5-haiku": { "input": 0.8, "output": 4 },
+    "gpt-4o": { "input": 2.5, "output": 10 },
+    "my-self-hosted-model": { "input": 0, "output": 0 }
+  }
+}

@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      # No API key and NO external network: every test spins a local fake
+      # upstream on 127.0.0.1 returning canned usage payloads. Asserted by
+      # the suite, including a test that greps logs + persisted state for an
+      # injected sentinel key/prompt and requires them ABSENT.
+      - run: npm test
+      # Smoke-test the CLI exactly as a user would invoke it (no network).
+      - run: node bin/spendguard.js --help
+      - run: node bin/spendguard.js status --json --state-dir "$RUNNER_TEMP/sg-smoke"
+      - name: pricing table must print and be flagged user-maintained
+        run: node bin/spendguard.js pricing | grep -i "verify"

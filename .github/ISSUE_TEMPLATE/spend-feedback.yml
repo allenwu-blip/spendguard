@@ -1,0 +1,55 @@
+name: "spendguard report"
+description: "Report a budget that did NOT hold (overspend slipped the guard), a wrong token count, a runaway loop it failed to kill, or — most serious — any sign a key/prompt leaked. Captured verbatim and read exactly as written."
+title: "[spendguard] "
+labels: ["spendguard-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. spendguard lives or dies on two things:
+        **(1) the budget actually holds (no overspend slips through), and
+        (2) it NEVER leaks your API key or prompt/response content.**
+        These reports are the single most useful input.
+        **Your description is stored and read exactly as you write it — it
+        is not summarized or paraphrased.** Be as blunt as you like.
+
+        SECURITY: if you suspect a key or prompt body leaked into a log,
+        diagnostic, or persisted file, say so here (do NOT paste the actual
+        key — just describe where you saw it). This is the highest-priority
+        class of report.
+
+        Note: spendguard can only account for traffic that goes THROUGH it,
+        the price table is user-maintained, and spend is an ESTIMATE, not a
+        bill. Those are documented limitations (see README), not bugs.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Report type
+      options:
+        - "SECURITY — a key or prompt/response body appeared somewhere it should not"
+        - "Overspend slipped the guard — budget exceeded but requests were still forwarded"
+        - "False block — requests were blocked while still under budget"
+        - "Wrong token/cost count (incl. streaming undercount)"
+        - "Runaway loop NOT killed (or wrongly killed)"
+        - "Attribution wrong (spend assigned to the wrong project)"
+        - "Other / not sure"
+    validations:
+      required: true
+  - type: input
+    id: upstream
+    attributes:
+      label: Upstream + endpoint shape (if relevant)
+      placeholder: "Anthropic /v1/messages streaming, or an OpenAI-compatible /v1/chat/completions, etc."
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened, in your own words
+      description: "Verbatim. Include the spendguard config (redact the upstream key — spendguard never needs you to share it), what budget you set, what you observed. For a security report: WHERE you saw the key/prompt (which file/log line), NOT the value."
+      placeholder: "Set --budget 5 USD/day on project 'api'. spendguard kept forwarding past $8 — `spendguard status` showed $8.40 but nothing was blocked..."
+    validations:
+      required: true
+  - type: input
+    id: invocation
+    attributes:
+      label: Your spendguard invocation / version, if non-default
+      placeholder: "npx spendguard start --port 8788 --budget 10 --over-budget hard-block, v0.1.0"

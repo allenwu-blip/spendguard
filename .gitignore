@@ -1,0 +1,9 @@
+node_modules/
+coverage/
+*.log
+.DS_Store
+# spendguard's own runtime state lives under the user's chosen --state-dir
+# (default ~/.spendguard) — never committed. Belt-and-suspenders here in
+# case a user points --state-dir at the repo.
+.spendguard/
+spendguard-state.json

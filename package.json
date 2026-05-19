@@ -1,0 +1,42 @@
+{
+  "name": "spendguard",
+  "version": "0.1.0",
+  "description": "Local proxy that hard-caps AI coding-agent token spend per project. Point your agent's LLM base-URL at localhost; spendguard forwards to your real upstream, enforces a per-project budget, and returns an over-budget error instead of forwarding when the limit is hit. Never logs keys or prompt bodies.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "spendguard": "bin/spendguard.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "spendguard": "node bin/spendguard.js"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "claude",
+    "anthropic",
+    "openai",
+    "coding-agent",
+    "token-budget",
+    "cost-control",
+    "proxy",
+    "guardrail",
+    "developer-tools",
+    "cli"
+  ],
+  "devDependencies": {
+    "vitest": "^2.1.9"
+  }
+}
